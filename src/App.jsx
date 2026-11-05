@@ -9,7 +9,7 @@ const Arrow = ({ back }) => (
   </svg>
 )
 const Logo = () => <Link to="/" className="logo" aria-label="Huoma Akwetelier home"><img src="/logo.png" alt="" /></Link>
-const Ask = () => <a className="wa" href={WA} target="_blank" rel="noreferrer">Ask the brand on WhatsApp ↗</a>
+const Ask = () => <a className="wa" href={WA} target="_blank" rel="noreferrer">Ask the brand on WhatsApp <span className="nea" aria-hidden="true">↗</span></a>
 const useTop = () => useEffect(() => { window.scrollTo(0, 0) }, [])
 
 /* ---------- Landing ---------- */
