@@ -19,7 +19,7 @@ const useTop = () => useEffect(() => { window.scrollTo(0, 0) }, [])
 /* ---------- Landing ---------- */
 const TopNav = () => (
   <nav className="topnav">
-    <Link to="/story" className="ourstory">Our story</Link>
+    <Link to="#" className="ourstory">Our story</Link>
     <Link to="/odogwu" className="pill sq">Join waitlist</Link>
   </nav>
 )
@@ -32,7 +32,7 @@ export function Landing() {
       <TopNav />
       <div className="hero-copy">
         <h1>Cloth with a memory.</h1>
-        <p>Contemporary Nigerian form,<br />beginning on the loom.</p>
+        <p>Contemporary Nigerian form, beginning on the loom.</p>
         <Link to="/odogwu" className="cta"><span>Join waitlist</span><i><Arrow /></i></Link>
       </div>
     </main>
