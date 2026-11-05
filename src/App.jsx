@@ -32,7 +32,7 @@ export function Landing() {
       <TopNav />
       <div className="hero-copy">
         <h1>Cloth with a memory.</h1>
-        <p>Contemporary Nigerian form,<br />beginning on the loom.</p>
+        <p>Contemporary Nigerian form, beginning on the loom.</p>
         <Link to="/odogwu" className="cta"><span>Join waitlist</span><i><Arrow /></i></Link>
       </div>
     </main>
