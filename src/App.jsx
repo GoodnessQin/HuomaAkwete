@@ -263,7 +263,7 @@ export function Reserve() {
         <button className="btn mixed gap" disabled={busy}>{busy ? <span className="spin" aria-label="Reserving" /> : <>Reserve my place <Arrow /></>}</button>
         <Link className="btn gap" to="/odogwu"><Arrow back /> Back to about piece</Link>
         <Ask />
-        <p className="fine">By reserving, you agree to receive updates about Odogwu by email and WhatsApp. <Link to="/privacy">Read our Privacy page</Link>.</p>
+        <p className="fine">By reserving, you agree to receive updates about Odogwu by email and WhatsApp. <Link to="#">Read our Privacy page</Link>.</p>
       </form>
     </main>
   )
