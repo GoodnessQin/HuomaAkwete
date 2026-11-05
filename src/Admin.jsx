@@ -13,6 +13,7 @@ export default function Admin() {
   const [q, setQ] = useState('')
   const [msg, setMsg] = useState('')
   const [cred, setCred] = useState({ email: '', password: '' })
+  const [tick, setTick] = useState(0)
 
   useEffect(() => {
     if (!configured) return setReady(true)
@@ -23,10 +24,13 @@ export default function Admin() {
 
   useEffect(() => {
     if (!session) return
-    supabase.from('waitlist').select('*').order('created_at', { ascending: false }).then(({ data, error }) => {
-      if (error) setMsg('Could not load the list. Check that your email is in the admins table.'); else { setMsg(''); setRows(data) }
+    supabase.rpc('is_admin').then(({ data: ok, error: e1 }) => {
+      if (e1 || !ok) { setRows([]); setMsg(`You are signed in as ${session.user.email}, but this email is not in the admins table. Add it in Supabase (SQL Editor), then press Refresh.`); return }
+      supabase.from('waitlist').select('*').order('created_at', { ascending: false }).then(({ data, error }) => {
+        if (error) setMsg('Could not load the list: ' + error.message); else { setMsg(''); setRows(data) }
+      })
     })
-  }, [session])
+  }, [session, tick])
 
   async function login(e) {
     e.preventDefault()
@@ -58,6 +62,7 @@ export default function Admin() {
       <header>
         <h2 className="thin">Waitlist <small>{rows.length} reservations</small></h2>
         <input placeholder="Search name, email, colour…" value={q} onChange={e => setQ(e.target.value)} />
+        <button className="pill" onClick={() => setTick(t => t + 1)}>Refresh</button>
         <button className="pill dark" onClick={csv}>Export CSV</button>
         <button className="pill" onClick={() => supabase.auth.signOut()}>Sign out</button>
       </header>
@@ -67,7 +72,7 @@ export default function Admin() {
         <tbody>{shown.map(r => (
           <tr key={r.id}><td>{code(r)}</td><td>{new Date(r.created_at).toLocaleString()}</td><td>{r.piece}</td><td>{r.colour}</td><td>{r.size || '–'}</td><td className="wrap">{meas(r) || '–'}</td><td>{r.full_name}</td><td><a href={`mailto:${r.email}`}>{r.email}</a></td><td><a href={`https://wa.me/${r.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noreferrer">{r.whatsapp}</a></td></tr>
         ))}</tbody>
-      </table>{!shown.length && <p className="empty">No reservations yet.</p>}</div>
+      </table>{!shown.length && !msg && <p className="empty">No reservations yet.</p>}</div>
     </main>
   )
 }

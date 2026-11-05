@@ -17,7 +17,11 @@ export const MEASURES = [
 ]
 // Without Supabase keys the form runs in preview mode so you can check the UI.
 export async function reserve(p) {
-  if (!configured) { await new Promise(r => setTimeout(r, 800)); return { code: 'HA-R018' } }
+  if (!configured) {
+    // Preview mode only exists on your own computer (npm run dev). On the live site, no keys = a visible error.
+    if (import.meta.env.DEV) { await new Promise(r => setTimeout(r, 800)); return { code: 'HA-R018' } }
+    return { error: new Error('Supabase keys are missing on this site') }
+  }
   const { data, error } = await supabase.rpc('reserve_place', p)
   return error ? { error } : { code: data }
 }
