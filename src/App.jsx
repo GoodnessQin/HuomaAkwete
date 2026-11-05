@@ -9,13 +9,17 @@ const Arrow = ({ back }) => (
   </svg>
 )
 const Logo = () => <Link to="/" className="logo" aria-label="Huoma Akwetelier home"><img src="/logo.png" alt="" /></Link>
-const Ask = () => <a className="wa" href={WA} target="_blank" rel="noreferrer">Ask the brand on WhatsApp <span className="nea" aria-hidden="true">↗</span></a>
+const Ask = () => (
+  <a className="wa" href={WA} target="_blank" rel="noreferrer">Ask the brand on WhatsApp
+    <svg className="nea" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.1" aria-hidden="true"><path d="M2 8L8 2M3 2h5v5" /></svg>
+  </a>
+)
 const useTop = () => useEffect(() => { window.scrollTo(0, 0) }, [])
 
 /* ---------- Landing ---------- */
 const TopNav = () => (
   <nav className="topnav">
-    <Link to="#" className="ourstory">Our story</Link>
+    <Link to="/story" className="ourstory">Our story</Link>
     <Link to="/odogwu" className="pill sq">Join waitlist</Link>
   </nav>
 )
@@ -85,11 +89,14 @@ export function Odogwu() {
   const [m, setM] = useState(emptyM)
   const [open, setOpen] = useState(false)
   const [liked, setLiked] = useState(false)
+  const [tried, setTried] = useState(0)
+  const [mErr, setMErr] = useState(false)
   const [slide, setSlide] = useState(0)
   const [x0, setX0] = useState(null)
   const slides = [0, 1, 2, 3]
   const go = i => setSlide((i + slides.length) % slides.length)
   const n = filled(m)
+  const ready = (mode === 'standard' && !!size) || (mode === 'custom' && n === 6)
 
   useEffect(() => {
     if (!open) return
@@ -98,9 +105,14 @@ export function Odogwu() {
     return () => document.removeEventListener('keydown', esc)
   }, [open])
 
-  const reserveNow = () => nav('/reserve', {
-    state: { colour, size: mode === 'custom' && n ? 'Made to measure' : size, measurements: mode === 'custom' && n ? m : null },
-  })
+  const reserveNow = () => {
+    if (!ready) {
+      setTried(t => t + 1)
+      document.getElementById('size-block')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      return
+    }
+    nav('/reserve', { state: { colour, size: mode === 'custom' ? 'Made to measure' : size, measurements: mode === 'custom' ? m : null } })
+  }
 
   return (
     <main className="split piece page">
@@ -138,7 +150,7 @@ export function Odogwu() {
           ))}
         </div>
         <hr />
-        <div className="sizerow">
+        <div key={tried} id="size-block" className={'sizerow' + (tried && !ready ? ' shake' : '')}>
           <small className="lab">Select size</small>
           <div className="sizes">
             <div className={'std' + (mode === 'standard' ? ' active' : '')}>
@@ -150,21 +162,22 @@ export function Odogwu() {
                 ))}
               </div>
             </div>
-            <button className={'mm' + (mode === 'custom' && n ? ' active' : '')} onClick={() => setOpen(true)}>
-              <span><b>My measurement</b><em>{n ? `${n} of 6 details added` : 'Add 6 Details'}</em></span>
+            <button className={'mm' + (mode === 'custom' && n === 6 ? ' active' : '')} onClick={() => { setMErr(false); setOpen(true) }}>
+              <span><b>My measurement</b><em>{n === 6 ? '6 details added' : n ? `${n} of 6 details added` : 'Add 6 Details'}</em></span>
               <Arrow />
             </button>
           </div>
         </div>
         <hr />
-        <button className="btn between" onClick={reserveNow}>Reserve your place <Arrow /></button>
+        {!ready && tried > 0 && <p className="err pick" role="alert">Choose a standard size or add your measurement to continue.</p>}
+        <button className={'btn between' + (ready ? '' : ' off')} aria-disabled={!ready} onClick={reserveNow}>Reserve your place <Arrow /></button>
         <Ask />
       </section>
 
       {open && (
         <div className="scrim" onMouseDown={e => e.target === e.currentTarget && setOpen(false)}>
           <form className="drawer" role="dialog" aria-modal="true" aria-label="My measurement"
-                onSubmit={e => { e.preventDefault(); setMode(n ? 'custom' : 'standard'); setOpen(false) }}>
+                onSubmit={e => { e.preventDefault(); if (n < 6) { setMErr(true); return } setMode('custom'); setOpen(false) }}>
             <div className="dh"><h2 className="thin">My measurement</h2><button type="button" className="x" onClick={() => setOpen(false)} aria-label="Close">×</button></div>
             <div className="unit" role="radiogroup" aria-label="Unit">
               {['cm', 'in'].map(u => <button type="button" key={u} role="radio" aria-checked={m.unit === u} className={m.unit === u ? 'on' : ''} onClick={() => setM({ ...m, unit: u })}>{u === 'cm' ? 'Centimetres' : 'Inches'}</button>)}
@@ -177,6 +190,7 @@ export function Odogwu() {
               ))}
             </div>
             <label className="f">Notes<input value={m.notes} onChange={e => setM({ ...m, notes: e.target.value })} placeholder="Anything we should know" /></label>
+            {mErr && n < 6 && <p className="err" role="alert">Please fill in all 6 measurements.</p>}
             <button className="btn">Save measurements</button>
           </form>
         </div>
@@ -217,6 +231,8 @@ export function Reserve() {
     if (res.error) return setFail('Something went wrong. Please try again, or message us on WhatsApp.')
     nav('/confirmed', { state: { code: res.code } })
   }
+
+  if (!sel.size && !sel.measurements) return <Navigate to="/odogwu" replace />
 
   return (
     <main className="split reserve page">
