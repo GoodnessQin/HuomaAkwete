@@ -3,6 +3,7 @@ create table public.waitlist (
   id bigint generated always as identity primary key,
   piece text not null,
   colour text not null,
+  lion_head_colour text,
   size text,
   measurements jsonb,
   full_name text not null,
@@ -24,7 +25,7 @@ create policy "admins read waitlist" on public.waitlist
 
 create function public.reserve_place(
   p_piece text, p_colour text, p_size text, p_measurements jsonb,
-  p_name text, p_email text, p_whatsapp text)
+  p_name text, p_email text, p_whatsapp text, p_lion_head_colour text default null)
 returns text language plpgsql security definer set search_path = public as $$
 declare v_id bigint;
 begin
@@ -33,8 +34,8 @@ begin
      or p_whatsapp !~ '^\+[0-9]{7,15}$' then
     raise exception 'invalid details';
   end if;
-  insert into waitlist (piece, colour, size, measurements, full_name, email, whatsapp)
-  values (p_piece, p_colour, p_size, p_measurements, trim(p_name), lower(trim(p_email)), p_whatsapp)
+  insert into waitlist (piece, colour, lion_head_colour, size, measurements, full_name, email, whatsapp)
+  values (p_piece, p_colour, p_lion_head_colour, p_size, p_measurements, trim(p_name), lower(trim(p_email)), p_whatsapp)
   returning id into v_id;
   return 'HA-R' || lpad(v_id::text, 3, '0');
 end $$;

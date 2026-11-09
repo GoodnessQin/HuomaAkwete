@@ -13,3 +13,7 @@
 - Go to `/admin` on your site: `http://localhost:5173/admin` while testing, `https://YOUR-DOMAIN/admin` once live.
 - Sign in with the admin email and password you created in Supabase (Authentication > Users).
 - That email must also be in the `admins` table (see step 4), otherwise the list will not load.
+
+## Emails with Resend (confirmation + studio alert)
+The code is in `supabase/functions/send-confirmation/index.ts`. The Resend API key lives ONLY in Supabase secrets, never in Vercel or `.env`.
+See the chat steps: create a Resend key, verify your domain, deploy the function, add the 4 secrets, then add a Database Webhook (waitlist, Insert).

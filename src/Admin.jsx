@@ -39,8 +39,8 @@ export default function Admin() {
   }
   const shown = rows.filter(r => (code(r) + ' ' + Object.values(r).join(' ') + meas(r)).toLowerCase().includes(q.toLowerCase()))
   const csv = () => {
-    const head = ['Reservation', 'Date', 'Piece', 'Colour', 'Size', 'Measurements', 'Name', 'Email', 'WhatsApp']
-    const lines = rows.map(r => [code(r), r.created_at, r.piece, r.colour, r.size || '', meas(r), r.full_name, r.email, r.whatsapp].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
+    const head = ['Reservation', 'Date', 'Piece', 'Fabric colour', 'Lion head colour', 'Size', 'Measurements', 'Name', 'Email', 'WhatsApp']
+    const lines = rows.map(r => [code(r), r.created_at, r.piece, r.colour, r.lion_head_colour || '', r.size || '', meas(r), r.full_name, r.email, r.whatsapp].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','))
     const a = document.createElement('a')
     a.href = URL.createObjectURL(new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' }))
     a.download = 'huoma-waitlist.csv'; a.click()
@@ -68,9 +68,9 @@ export default function Admin() {
       </header>
       {msg && <p className="err">{msg}</p>}
       <div className="scroll"><table>
-        <thead><tr><th>Reservation</th><th>Date</th><th>Piece</th><th>Colour</th><th>Size</th><th>Measurements</th><th>Name</th><th>Email</th><th>WhatsApp</th></tr></thead>
+        <thead><tr><th>Reservation</th><th>Date</th><th>Piece</th><th>Fabric colour</th><th>Lion head colour</th><th>Size</th><th>Measurements</th><th>Name</th><th>Email</th><th>WhatsApp</th></tr></thead>
         <tbody>{shown.map(r => (
-          <tr key={r.id}><td>{code(r)}</td><td>{new Date(r.created_at).toLocaleString()}</td><td>{r.piece}</td><td>{r.colour}</td><td>{r.size || '–'}</td><td className="wrap">{meas(r) || '–'}</td><td>{r.full_name}</td><td><a href={`mailto:${r.email}`}>{r.email}</a></td><td><a href={`https://wa.me/${r.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noreferrer">{r.whatsapp}</a></td></tr>
+          <tr key={r.id}><td>{code(r)}</td><td>{new Date(r.created_at).toLocaleString()}</td><td>{r.piece}</td><td>{r.colour}</td><td>{r.lion_head_colour || '–'}</td><td>{r.size || '–'}</td><td className="wrap">{meas(r) || '–'}</td><td>{r.full_name}</td><td><a href={`mailto:${r.email}`}>{r.email}</a></td><td><a href={`https://wa.me/${r.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noreferrer">{r.whatsapp}</a></td></tr>
         ))}</tbody>
       </table>{!shown.length && !msg && <p className="empty">No reservations yet.</p>}</div>
     </main>

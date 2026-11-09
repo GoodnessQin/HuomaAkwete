@@ -5,7 +5,13 @@ const key = env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_ANON_KEY || e
 export const configured = Boolean(url && key)
 export const supabase = configured ? createClient(url, key) : null
 export const WA = `https://wa.me/${env.VITE_BRAND_WHATSAPP || env.NEXT_PUBLIC_BRAND_WHATSAPP || ''}`
-export const PIECE = 'Odogwu Edit'
+// Igbo name: Ísī Ọ́dụ̀m (copy it exactly, the tone marks and dots under the letters matter)
+export const IGBO = 'Ísī Ọ́dụ̀m'
+export const PIECE = `Odogwu (ODG) aka ${IGBO}`
+export const LION_HEADS = [['Gold', '#D3AF37'], ['Silver', '#B0AFAC'], ['Black', '#000000']]
+// Images in the piece-page gallery, in order. Put the files in the `public` folder and list them here.
+// The dots and the "1/4" counter follow the number of images in this list.
+export const GALLERY = ['/hero.png', '/hero.png', '/hero.png', '/hero.png']
 export const SIZES = ['XS', 'S', 'M', 'L', 'XL']
 export const COLOURS = [
   ['Ivory', '#EAE5D1'], ['Ink black', '#161616'], ['Oxblood', '#5C1A14'], ['Royal blue', '#1B4A9A'],

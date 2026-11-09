@@ -93,7 +93,7 @@ small,.lab,.f>span,.sizes,.swatches button,.fine,.err,table,.admin input{font-fa
 /* Piece page */
 .gallery{background:#222}
 .track{display:flex;height:100%;transition:transform .6s var(--ease)}
-.slide{flex:none;width:100%;height:100%;background:url(/hero.png) center/cover}
+.slide{flex:none;width:100%;height:100%;background-position:center;background-size:cover;background-repeat:no-repeat}
 .dots{position:absolute;left:0;right:0;bottom:44px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--cream);font:13px 'Inter',sans-serif}
 .dots div{display:flex;gap:14px}
 .dots button{width:13px;height:13px;border-radius:50%;background:var(--cream);opacity:.45;transition:opacity .3s,transform .3s}
@@ -267,3 +267,17 @@ td.wrap{white-space:normal;min-width:220px}tbody tr:hover{background:#0000000a}t
 .pick{margin:0 0 14px}
 .shake{animation:shake .5s var(--ease)}
 @keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+/* Lion head colours, fabric details note, Igbo tone-mark fallback font */
+body{font-family:'Cinzel','Playfair Display',serif}
+.swatches.few{justify-content:flex-start;gap:20px 28px}
+.swatches.few button{width:auto;min-width:56px}
+.fabnote{background:var(--tan);padding:16px;display:grid;gap:12px;box-shadow:0 3px 8px #0002;margin-top:14px}
+.fabnote>div{display:grid;grid-template-columns:104px 1fr;gap:12px;align-items:baseline}
+.fabnote dt{font:12px 'Inter',sans-serif;text-transform:uppercase}
+.fabnote dd{font:400 15px/1.5 'Playfair Display',serif}
+@media(max-width:820px){.swatches.few{justify-content:flex-start;gap:16px 22px}.swatches.few button{width:auto;min-width:48px}.fabnote>div{grid-template-columns:92px 1fr}}
+
+.fabnote>div+div{border-top:1px solid #0002;padding-top:12px}
+.fabnote dd{margin:0}
+@media(max-width:820px){.fabnote>div{grid-template-columns:116px 1fr}}

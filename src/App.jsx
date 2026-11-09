@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom'
-import { reserve, WA, PIECE, COLOURS, SIZES, MEASURES } from './supabase.js'
+import { reserve, WA, PIECE, IGBO, GALLERY, COLOURS, LION_HEADS, SIZES, MEASURES } from './supabase.js'
 import CountryPicker, { DEFAULT_COUNTRY } from './CountryPicker.jsx'
 
 const Arrow = ({ back }) => (
@@ -19,7 +19,7 @@ const useTop = () => useEffect(() => { window.scrollTo(0, 0) }, [])
 /* ---------- Landing ---------- */
 const TopNav = () => (
   <nav className="topnav">
-    <Link to="#" className="ourstory">Our story</Link>
+    <Link to="/story" className="ourstory">Our story</Link>
     <Link to="/odogwu" className="pill sq">Join waitlist</Link>
   </nav>
 )
@@ -32,7 +32,7 @@ export function Landing() {
       <TopNav />
       <div className="hero-copy">
         <h1>Cloth with a memory.</h1>
-        <p>Contemporary Nigerian form, beginning on the loom.</p>
+        <p>Contemporary Nigerian form,<br />beginning on the loom.</p>
         <Link to="/odogwu" className="cta"><span>Join waitlist</span><i><Arrow /></i></Link>
       </div>
     </main>
@@ -85,6 +85,7 @@ export function Odogwu() {
   const nav = useNavigate()
   const [colour, setColour] = useState('Ivory')
   const [size, setSize] = useState(null)
+  const [lionHead, setLionHead] = useState(null)
   const [mode, setMode] = useState('standard')
   const [m, setM] = useState(emptyM)
   const [open, setOpen] = useState(false)
@@ -93,10 +94,10 @@ export function Odogwu() {
   const [mErr, setMErr] = useState(false)
   const [slide, setSlide] = useState(0)
   const [x0, setX0] = useState(null)
-  const slides = [0, 1, 2, 3]
+  const slides = GALLERY
   const go = i => setSlide((i + slides.length) % slides.length)
   const n = filled(m)
-  const ready = (mode === 'standard' && !!size) || (mode === 'custom' && n === 6)
+  const ready = !!lionHead // a fabric colour is always chosen (Ivory by default); the lion head colour must be picked
 
   useEffect(() => {
     if (!open) return
@@ -108,10 +109,10 @@ export function Odogwu() {
   const reserveNow = () => {
     if (!ready) {
       setTried(t => t + 1)
-      document.getElementById('size-block')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      document.getElementById('lion-block')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
     }
-    nav('/reserve', { state: { colour, size: mode === 'custom' ? 'Made to measure' : size, measurements: mode === 'custom' ? m : null } })
+    nav('/reserve', { state: { colour, lionHead, size: null, measurements: null } })
   }
 
   return (
@@ -119,11 +120,11 @@ export function Odogwu() {
       <div className="gallery" onTouchStart={e => setX0(e.touches[0].clientX)}
            onTouchEnd={e => { if (x0 !== null) { const d = e.changedTouches[0].clientX - x0; if (Math.abs(d) > 40) go(slide + (d < 0 ? 1 : -1)); setX0(null) } }}>
         <div className="track" style={{ transform: `translateX(-${slide * 100}%)` }}>
-          {slides.map(i => <div key={i} className="slide" role="img" aria-label={`${PIECE}, image ${i + 1} of 4`} />)}
+          {slides.map((src, i) => <div key={i} className="slide" style={{ backgroundImage: `url(${src})` }} role="img" aria-label={`${PIECE}, image ${i + 1} of ${slides.length}`} />)}
         </div>
         <div className="dots">
-          <div>{slides.map(i => <button key={i} className={i === slide ? 'on' : ''} onClick={() => go(i)} aria-label={`Image ${i + 1}`} />)}</div>
-          <span>{slide + 1}/4</span>
+          {slides.length > 1 && <div>{slides.map((_, i) => <button key={i} className={i === slide ? 'on' : ''} onClick={() => go(i)} aria-label={`Image ${i + 1}`} />)}</div>}
+          {slides.length > 1 && <span>{slide + 1}/{slides.length}</span>}
         </div>
       </div>
 
@@ -141,8 +142,8 @@ export function Odogwu() {
         <h3>#Waitlist</h3>
         <p className="copy">Odogwu (ODG) is our first original design line, made for men. Akwete cloth marked with the tiger head, a classic of Igbo menswear, composed in our own pattern and woven by hand in southeastern Nigeria. Choose your colour and hold your place.</p>
         <hr />
-        <small className="lab">Select colour</small>
-        <div className="swatches" role="radiogroup" aria-label="Colour">
+        <small className="lab">Select fabric colour</small>
+        <div className="swatches" role="radiogroup" aria-label="Fabric colour">
           {COLOURS.map(([name, hex]) => (
             <button key={name} role="radio" aria-checked={colour === name} className={colour === name ? 'on' : ''} onClick={() => setColour(name)}>
               <span style={{ background: hex }} />{name}
@@ -150,26 +151,29 @@ export function Odogwu() {
           ))}
         </div>
         <hr />
-        <div key={tried} id="size-block" className={'sizerow' + (tried && !ready ? ' shake' : '')}>
-          <small className="lab">Select size</small>
-          <div className="sizes">
-            <div className={'std' + (mode === 'standard' ? ' active' : '')}>
-              <span className="sl">Standard size</span>
-              <div className="cells" role="radiogroup" aria-label="Standard size">
-                {SIZES.map(s => (
-                  <button key={s} role="radio" aria-checked={mode === 'standard' && size === s} className={mode === 'standard' && size === s ? 'on' : ''}
-                          onClick={() => { setSize(s); setMode('standard') }}>{s}</button>
-                ))}
-              </div>
-            </div>
-            <button className={'mm' + (mode === 'custom' && n === 6 ? ' active' : '')} onClick={() => { setMErr(false); setOpen(true) }}>
-              <span><b>My measurement</b><em>{n === 6 ? '6 details added' : n ? `${n} of 6 details added` : 'Add 6 Details'}</em></span>
-              <Arrow />
-            </button>
+        <div key={tried} id="lion-block" className={tried && !ready ? 'shake' : ''}>
+          <small className="lab">Select Lion Head ({IGBO}) colour</small>
+          <div className="swatches few" role="radiogroup" aria-label="Lion head colour">
+            {LION_HEADS.map(([name, hex]) => (
+              <button key={name} role="radio" aria-checked={lionHead === name} className={lionHead === name ? 'on' : ''} onClick={() => setLionHead(name)}>
+                <span style={{ background: hex }} />{name}
+              </button>
+            ))}
           </div>
         </div>
         <hr />
-        {!ready && tried > 0 && <p className="err pick" role="alert">Choose a standard size or add your measurement to continue.</p>}
+        <small className="lab">Fabric details</small>
+        <dl className="fabnote">
+          <div><dt>Size</dt><dd>No size needed. Sold as fabric only.</dd></div>
+          <div><dt>Includes</dt><dd>2 wrappers</dd></div>
+          <div><dt>Each wrapper</dt><dd>2.5 yards (trouser length)</dd></div>
+          <div><dt>Total fabric</dt><dd>5 yards</dd></div>
+        </dl>
+        {/* SELECT SIZE: hidden for now at the owner's request. To bring it back, remove the comment wrapper around the block
+            below and set `ready` (above) back to the size / measurement rule.
+        */}
+        <hr />
+        {!ready && tried > 0 && <p className="err pick" role="alert">Choose a Lion Head ({IGBO}) colour to continue.</p>}
         <button className={'btn between' + (ready ? '' : ' off')} aria-disabled={!ready} onClick={reserveNow}>Reserve your place <Arrow /></button>
         <Ask />
       </section>
@@ -224,7 +228,7 @@ export function Reserve() {
     if (Object.keys(rules).some(k => rules[k](f[k]))) return
     setBusy(true); setFail('')
     const res = await reserve({
-      p_piece: PIECE, p_colour: sel.colour || 'Ivory', p_size: sel.size || null, p_measurements: sel.measurements || null,
+      p_piece: PIECE, p_colour: sel.colour || 'Ivory', p_size: sel.size || null, p_measurements: sel.measurements || null, p_lion_head_colour: sel.lionHead,
       p_name: f.name, p_email: f.email, p_whatsapp: country.dial + f.phone.replace(/\D/g, '').replace(/^0/, ''),
     })
     setBusy(false)
@@ -232,7 +236,7 @@ export function Reserve() {
     nav('/confirmed', { state: { code: res.code } })
   }
 
-  if (!sel.size && !sel.measurements) return <Navigate to="/odogwu" replace />
+  if (!sel.lionHead) return <Navigate to="/odogwu" replace />
 
   return (
     <main className="split reserve page">
@@ -263,7 +267,7 @@ export function Reserve() {
         <button className="btn mixed gap" disabled={busy}>{busy ? <span className="spin" aria-label="Reserving" /> : <>Reserve my place <Arrow /></>}</button>
         <Link className="btn gap" to="/odogwu"><Arrow back /> Back to about piece</Link>
         <Ask />
-        <p className="fine">By reserving, you agree to receive updates about Odogwu by email and WhatsApp. <Link to="#">Read our Privacy page</Link>.</p>
+        <p className="fine">By reserving, you agree to receive updates about Odogwu by email and WhatsApp. <Link to="/privacy">Read our Privacy page</Link>.</p>
       </form>
     </main>
   )
