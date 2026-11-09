@@ -140,7 +140,7 @@ export function Odogwu() {
           </button>
         </div>
         <h3>#Waitlist</h3>
-        <p className="copy">Odogwu (ODG) is our first original design line, made for men. Akwete cloth marked with the tiger head, a classic of Igbo menswear, composed in our own pattern and woven by hand in southeastern Nigeria. Choose your colour and hold your place.</p>
+        <p className="copy">Odogwu (ODG) is our first original design line, made for men. Akwete cloth marked with the lion head, a classic of Igbo menswear, composed in our own pattern and woven by hand in southeastern Nigeria. Choose your colour and hold your place.</p>
         <hr />
         <small className="lab">Select fabric colour</small>
         <div className="swatches" role="radiogroup" aria-label="Fabric colour">
