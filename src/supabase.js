@@ -15,7 +15,7 @@ export const GALLERY = ['/hero.png', '/hero.png', '/hero.png', '/hero.png']
 export const SIZES = ['XS', 'S', 'M', 'L', 'XL']
 export const COLOURS = [
   ['Ivory', '#EAE5D1'], ['Ink black', '#161616'], ['Oxblood', '#5C1A14'], ['Royal blue', '#1B4A9A'],
-  ['Gold', '#B48A2A'], ['Forest green', '#2B4A36'], ['Navy blue', '#0A0A8C'],
+  ['Gold', '#B48A2A'], ['Forest green', '#2B4A36'], ['Navy blue', '#0E1531'],
 ]
 export const MEASURES = [
   ['chest', 'Chest'], ['shoulder', 'Shoulder'], ['sleeve', 'Sleeve length'],
