@@ -31,8 +31,8 @@ export function Landing() {
       <Logo />
       <TopNav />
       <div className="hero-copy">
-        <h1>Cloth with a memory.</h1>
-        <p>Contemporary Nigerian form, beginning on the loom.</p>
+        <h1>Timeless threads of Luxury Heritage.</h1>
+        <p>Contemporary Elegance born on the loom</p>
         <Link to="/odogwu" className="cta"><span>Join waitlist</span><i><Arrow /></i></Link>
       </div>
     </main>
