@@ -219,7 +219,7 @@ td.wrap{white-space:normal;min-width:220px}tbody tr:hover{background:#0000000a}t
 .hero{align-items:flex-start;padding:0 24px 80px}
 .hero::before{background:linear-gradient(rgba(0,0,0,.03),rgba(0,0,0,.06)),url(/hero-wide.png) center/cover}
 .hero-copy{margin-top:max(170px,27.7svh)}
-.hero h1{font-size:clamp(50px,7.3vw,128px);line-height:1.02;white-space:nowrap}
+.hero h1{font-size:clamp(40px,5.4vw,96px);line-height:1.08;white-space:normal;max-width:13.5em;margin-left:auto;margin-right:auto;text-align:center;text-wrap:balance;overflow-wrap:normal}
 .hero p{font-size:clamp(22px,2.9vw,46px);line-height:1.2;margin:43px 0 90px}
 .cta{display:flex;width:647px;max-width:100%;height:51px;margin:0 auto;font-weight:700;font-size:16px;letter-spacing:.02em;text-transform:uppercase;color:#000}
 .cta span{flex:418;display:grid;place-items:center;background:rgba(230,227,206,.68);backdrop-filter:blur(3px);transition:background .3s}
@@ -242,7 +242,7 @@ td.wrap{white-space:normal;min-width:220px}tbody tr:hover{background:#0000000a}t
   .hero{padding:0 20px 40px}
   .hero::before{background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.42)),url(/hero.png) center top/cover}
   .hero-copy{margin-top:34svh}
-  .hero h1{font-size:clamp(50px,16vw,66px);line-height:1.03;white-space:normal}
+  .hero h1{font-size:clamp(32px,10.5vw,52px);line-height:1.08;white-space:normal;max-width:none;text-wrap:balance}
   .hero p{font-size:clamp(19px,5.6vw,24px);margin:64px 0 60px}
   .cta{height:56px}
   .shero{min-height:70svh}.sbody{padding:56px 20px 80px}
