@@ -8,14 +8,14 @@ export const WA = `https://wa.me/${env.VITE_BRAND_WHATSAPP || env.NEXT_PUBLIC_BR
 // Igbo name: Ísī Ọ́dụ̀m (copy it exactly, the tone marks and dots under the letters matter)
 export const IGBO = 'Ísī Ọ́dụ̀m'
 export const PIECE = `Odogwu (ODG) aka ${IGBO}`
-export const LION_HEADS = [['Gold', '#D3AF37'], ['Silver', '#B0AFAC'], ['Black', '#000000']]
+export const LION_HEADS = [['Champagne Gold', '#D3AF37'], ['Sterling Silver', '#B0AFAC'], ['Obsidian', '#000000']]
 // Images in the piece-page gallery, in order. Put the files in the `public` folder and list them here.
 // The dots and the "1/4" counter follow the number of images in this list.
 export const GALLERY = ['/hero.png', '/hero.png', '/hero.png', '/hero.png']
 export const SIZES = ['XS', 'S', 'M', 'L', 'XL']
 export const COLOURS = [
-  ['Ivory', '#EAE5D1'], ['Ink black', '#161616'], ['Oxblood', '#5C1A14'], ['Royal blue', '#1B4A9A'],
-  ['Gold', '#B48A2A'], ['Forest green', '#2B4A36'], ['Navy blue', '#0E1531'],
+  ['Ivory', '#EAE5D1'], ['Onyx', '#161616'], ['Burgundy', '#5C1A14'], ['Cobalt', '#1B4A9A'],
+  ['Antique Gold', '#B48A2A'], ['Evergreen', '#2B4A36'], ['Midnight', '#0E1531'],
 ]
 export const MEASURES = [
   ['chest', 'Chest'], ['shoulder', 'Shoulder'], ['sleeve', 'Sleeve length'],

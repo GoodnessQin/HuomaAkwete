@@ -281,3 +281,12 @@ body{font-family:'Cinzel','Playfair Display',serif}
 .fabnote>div+div{border-top:1px solid #0002;padding-top:12px}
 .fabnote dd{margin:0}
 @media(max-width:820px){.fabnote>div{grid-template-columns:116px 1fr}}
+.copy+.copy{margin-top:16px}
+.piece h3{line-height:1.25}
+
+/* Longer fabric colour names: keep 7 swatches in one row on mobile without the labels touching */
+@media(max-width:820px){
+  .swatches:not(.few){gap:16px 0}
+  .swatches:not(.few) button{width:14.28%;min-width:0;font-size:8.5px;letter-spacing:-.02em;line-height:1.25}
+}
+@media(max-width:380px){.swatches:not(.few) button{font-size:7.5px}}
