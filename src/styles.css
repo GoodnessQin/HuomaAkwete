@@ -290,3 +290,15 @@ body{font-family:'Cinzel','Playfair Display',serif}
   .swatches:not(.few) button{width:14.28%;min-width:0;font-size:8.5px;letter-spacing:-.02em;line-height:1.25}
 }
 @media(max-width:380px){.swatches:not(.few) button{font-size:7.5px}}
+
+/* Piece page: quieter, minimal product copy */
+.piece h3{font:500 12px/1.4 'Inter',sans-serif;letter-spacing:.16em;text-transform:uppercase;margin:28px 0 14px;color:#3d3a33}
+.piece .copy{font:400 14px/1.75 'Inter',sans-serif;color:#3d3a33;max-width:none}
+.piece .copy+.copy{margin-top:12px}
+.piece hr{margin:28px 0 26px}
+@media(max-width:820px){
+  .piece h3{font-size:11px;margin:24px 0 12px}
+  .piece .copy{font-size:13.5px}
+  .piece hr{margin:24px 0}
+}
+.piece .panel>*{width:100%;max-width:720px}

@@ -140,10 +140,10 @@ export function Odogwu() {
           </button>
         </div>
         <h3>The First Original Design Collection</h3>
-        <p className="copy">ODG is our first original men’s design line, inspired by Akwete cloth and the heritage of Igbo menswear.</p>
-        <p className="copy">At its heart is the {IGBO} (lion head), reworked into our own pattern. A symbol of strength and pride, deeply rooted in the dressing of the Igbo man.</p>
-        <p className="copy">Handwoven in southeastern Nigeria, every Akwete fabric, colour and detail comes together to give each piece its own character.</p>
-        <p className="copy">Choose your fabric colour and lion head finish.</p>
+        <p className="copy">ODG is our first original design line for men, inspired by Akwete cloth and the rich heritage of Igbo menswear.</p>
+        <p className="copy">At the heart of the design is the lion head ({IGBO}), a familiar symbol in traditional Igbo men’s fashion. We have taken this classic detail and reworked it into our own pattern, drawing inspiration from the strength, pride and presence of the legendary Igbo man.</p>
+        <p className="copy">Every piece begins with Akwete, handwoven in southeastern Nigeria using a craft passed down through generations. The fabric, the colours and the artwork each bring something different to the design. Nothing is chosen without thought; every detail has its place.</p>
+        <p className="copy">Choose your Akwete colour and lion head finish to make your selection.</p>
         <hr />
         <small className="lab">Select fabric colour</small>
         <div className="swatches" role="radiogroup" aria-label="Fabric colour">
