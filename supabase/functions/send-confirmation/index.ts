@@ -20,7 +20,7 @@ function customerHtml(first: string, r: any, code: string, site: string) {
 <tr><td style="font-size:38px;line-height:1.15;letter-spacing:1px;font-weight:bold;text-transform:uppercase;padding-bottom:28px">You're on<br>the list.</td></tr>
 <tr><td style="font-size:16px;line-height:1.7;padding:0 12px 34px">Thank you for reserving our unique Odogwu ODG piece with Huoma Akwetelier. Your place is held. We will contact you before release, with first access.</td></tr>
 <tr><td style="padding-bottom:26px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#E6E3CE;text-align:left"><tr>
-<td width="100" style="padding:14px"><img src="${site}/hero.png" width="86" height="100" alt="" style="display:block;border:0;object-fit:cover"></td>
+<td width="100" style="padding:14px"><img src="${site}/odg-email.jpg" width="86" height="100" alt="Odogwu (ODG)" style="display:block;border:0"></td>
 <td style="padding:14px 14px 14px 4px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:2;text-transform:uppercase;color:#000">
 YOUR PIECE<br><b style="font-family:Georgia,'Times New Roman',serif;font-size:16px">${esc(String(r.piece || 'Odogwu (ODG)').toUpperCase())}</b><br>PRIORITY RESERVATION &bull; ${esc(code)}</td></tr></table></td></tr>
 <tr><td><a href="${site}" style="display:block;background:#000;color:#E6E3CE;text-decoration:none;font-size:16px;letter-spacing:1px;padding:18px 0">Return to Homepage &rarr;</a></td></tr>
