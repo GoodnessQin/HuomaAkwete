@@ -92,7 +92,7 @@ small,.lab,.f>span,.sizes,.swatches button,.fine,.err,table,.admin input{font-fa
 
 /* Piece page */
 .gallery{background:#222}
-.track{display:flex;height:100%;transition:transform .6s var(--ease)}
+.track{display:flex;height:100%;transition:transform .9s var(--ease)}
 .slide{flex:none;width:100%;height:100%;background-position:center 8%;background-size:cover;background-repeat:no-repeat}
 .dots{position:absolute;left:0;right:0;bottom:44px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--cream);font:13px 'Inter',sans-serif}
 .dots div{display:flex;gap:14px}

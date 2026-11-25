@@ -96,6 +96,14 @@ export function Odogwu() {
   const [x0, setX0] = useState(null)
   const slides = GALLERY
   const go = i => setSlide((i + slides.length) % slides.length)
+  const [hold, setHold] = useState(false) // pause while the mouse is over the photos
+
+  // Gallery moves on by itself every 6 seconds; any tap, swipe or dot click restarts the count
+  useEffect(() => {
+    if (slides.length < 2 || hold) return
+    const t = setTimeout(() => setSlide(s => (s + 1) % slides.length), 6000)
+    return () => clearTimeout(t)
+  }, [slide, hold, slides.length])
   const n = filled(m)
   const ready = !!lionHead // a fabric colour is always chosen (Ivory by default); the lion head colour must be picked
 
@@ -117,7 +125,7 @@ export function Odogwu() {
 
   return (
     <main className="split piece page">
-      <div className="gallery" onTouchStart={e => setX0(e.touches[0].clientX)}
+      <div className="gallery" onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)} onTouchStart={e => setX0(e.touches[0].clientX)}
            onTouchEnd={e => { if (x0 !== null) { const d = e.changedTouches[0].clientX - x0; if (Math.abs(d) > 40) go(slide + (d < 0 ? 1 : -1)); setX0(null) } }}>
         <div className="track" style={{ transform: `translateX(-${slide * 100}%)` }}>
           {slides.map((src, i) => <div key={i} className="slide" style={{ backgroundImage: `url(${src})` }} role="img" aria-label={`${PIECE}, image ${i + 1} of ${slides.length}`} />)}
