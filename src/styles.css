@@ -54,7 +54,7 @@ small,.lab,.f>span,.sizes,.swatches button,.fine,.err,table,.admin input{font-fa
 .split{display:grid;grid-template-columns:665px 1fr;min-height:100vh}
 .split.piece{grid-template-columns:686px 1fr}
 .photo,.gallery{position:sticky;top:0;height:100vh;overflow:hidden}
-.photo{background:linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.3)),url(/hero.png) center/cover}
+.photo{background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 55%,rgba(0,0,0,.5) 100%),url(/odg-front.jpg) center 8%/cover}
 .photo h1{position:absolute;left:40px;bottom:40px;right:20px;color:var(--cream);font-weight:700;font-size:clamp(40px,4.2vw,60px);line-height:1;animation:rise .9s .2s var(--ease) both}
 .panel{padding:40px 67px 48px 100px;display:flex;flex-direction:column;max-width:900px;width:100%}
 .reserve .panel>*{animation:rise .7s var(--ease) both}
@@ -307,7 +307,7 @@ body{font-family:'Cinzel','Playfair Display',serif}
    the words sit on a solid dark panel on the left. */
 @media(min-width:821px){
   .hero::before{background:#17120e;animation:none}
-  .hero::after{content:'';position:absolute;top:0;bottom:0;right:0;left:44%;z-index:-1;background:linear-gradient(90deg,rgba(23,18,14,.35),rgba(23,18,14,0) 14%),url(/odg-front.jpg) center 6%/cover no-repeat;animation:settle 2.6s var(--ease) both}
+  .hero::after{content:'';position:absolute;top:0;bottom:0;right:0;left:44%;z-index:-1;background:linear-gradient(90deg,rgba(23,18,14,.35),rgba(23,18,14,0) 14%),url(/odg-wide.jpg) center 30%/cover no-repeat;animation:settle 2.6s var(--ease) both}
   .hero{justify-content:flex-start;align-items:center;padding:110px 0 60px}
   .hero .hero-copy{margin:0;width:44%;max-width:none;padding:0 clamp(28px,4vw,72px)}
   .hero .hero-copy h1{font-size:clamp(30px,3.1vw,58px);max-width:11.5em}

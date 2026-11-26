@@ -253,7 +253,7 @@ export function Reserve() {
     <main className="split reserve page">
       <div className="photo"><Logo /><h1>Hold your place.</h1></div>
       <form className="panel" onSubmit={submit} noValidate>
-        <nav><Link to="/story">Our story</Link><Link to="/" className="pill dark">Homepage</Link></nav>
+        <nav><Link to="/#">Our story</Link><Link to="/" className="pill dark">Homepage</Link></nav>
         <h2 className="thin big">Reserve a piece</h2>
         <p className="lead">No payment today. We'll contact you before release with first access.</p>
 
